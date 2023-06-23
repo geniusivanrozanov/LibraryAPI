@@ -15,4 +15,6 @@ public class Book : IBaseEntity<Guid>
     public ICollection<Genre>? Genres { get; set; }
 
     public ICollection<Author>? Authors { get; set; }
+    
+    public ICollection<BookRent>? Rents { get; set; }
 }
