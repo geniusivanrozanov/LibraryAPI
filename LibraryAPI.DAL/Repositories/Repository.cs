@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using LibraryAPI.DAL.Interfaces;
 using LibraryAPI.DAL.Interfaces.Entities;
+using LibraryAPI.DAL.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.DAL.Repositories;
