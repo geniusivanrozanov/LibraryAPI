@@ -1,4 +1,6 @@
 ﻿using LibraryAPI.DAL.Contexts;
+using LibraryAPI.DAL.Interfaces.Repositories;
+using LibraryAPI.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureLibraryDbContext(configuration);
+        services.AddScoped<IRepositoryManager, RepositoryManager>();
         
         return services;
     }
