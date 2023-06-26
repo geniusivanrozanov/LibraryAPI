@@ -16,13 +16,13 @@ public abstract class Repository<TEntity, TKey, TContext> : IRepository<TEntity,
         Context = context;
     }
 
-    public IQueryable<TEntity> Get() => Context.Set<TEntity>();
+    public virtual IQueryable<TEntity> Get() => Context.Set<TEntity>();
 
-    public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> condition) => Context.Set<TEntity>().Where(condition);
+    public virtual IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> condition) => Get().Where(condition);
 
-    public void Create(TEntity entity) => Context.Set<TEntity>().Add(entity);
+    public virtual void Create(TEntity entity) => Context.Set<TEntity>().Add(entity);
 
-    public void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
+    public virtual void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
 
-    public void Delete(TEntity entity) => Context.Set<TEntity>().Remove(entity);
+    public virtual void Delete(TEntity entity) => Context.Set<TEntity>().Remove(entity);
 }
