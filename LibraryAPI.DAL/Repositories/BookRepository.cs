@@ -11,6 +11,13 @@ public class BookRepository : Repository<Book, Guid, LibraryDbContext>, IBookRep
     {
     }
 
+    public override IQueryable<Book> Get()
+    {
+        return base.Get()
+            .Include(b => b.Authors)
+            .Include(b => b.Genres);
+    }
+
     public async Task<IEnumerable<Book>> GetAllBooksAsync()
     {
         var books = await Get()
