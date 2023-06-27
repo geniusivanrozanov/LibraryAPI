@@ -15,4 +15,6 @@ public interface IRepository<TEntity, TKey>
     void Update(TEntity entity);
 
     void Delete(TEntity entity);
+
+    Task<bool> ExistsAsync(TKey id);
 }
