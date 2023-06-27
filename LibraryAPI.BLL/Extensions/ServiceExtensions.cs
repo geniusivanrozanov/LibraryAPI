@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
+using LibraryAPI.BLL.Interfaces.Validators;
+using LibraryAPI.BLL.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryAPI.BLL.Extensions;
@@ -10,7 +12,7 @@ public static class ServiceExtensions
     {
         services.ConfigureAutomapper();
         services.ConfigureValidators();
-        
+
         return services;
     }
     
@@ -24,6 +26,7 @@ public static class ServiceExtensions
     private static IServiceCollection ConfigureValidators(this IServiceCollection services)
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddScoped<IValidatorManager, ValidatorManager>();
         
         return services;
     }
