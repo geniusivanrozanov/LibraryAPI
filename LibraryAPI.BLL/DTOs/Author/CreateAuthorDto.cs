@@ -1,8 +1,6 @@
 ﻿namespace LibraryAPI.BLL.DTOs.Author;
 
-public class CreateAuthorDto
+public class CreateAuthorDto : AuthorDto
 {
-    public string FirstName { get; set; } = default!;
 
-    public string LastName { get; set; } = default!;
 }

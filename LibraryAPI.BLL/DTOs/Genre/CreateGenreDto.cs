@@ -1,6 +1,6 @@
 ﻿namespace LibraryAPI.BLL.DTOs.Genre;
 
-public class CreateGenreDto
+public class CreateGenreDto : GenreDto
 {
-    public string Name { get; set; } = default!;
+
 }
