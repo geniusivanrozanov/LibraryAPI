@@ -21,4 +21,8 @@ public interface IBookRepository
     void DeleteBook(Book book);
     
     Task<bool> ExistsAsync(Guid id);
+
+    Task<bool> ExistsWithNameAsync(string name);
+
+    Task<bool> ExistsWithISBNAsync(string isbn);
 }
