@@ -1,6 +1,6 @@
 ﻿namespace LibraryAPI.BLL.DTOs.BookRent;
 
-public class AddBookRentDto
+public class CreateBookRentDto
 {
     public DateTime TakingDate { get; set; }
     
