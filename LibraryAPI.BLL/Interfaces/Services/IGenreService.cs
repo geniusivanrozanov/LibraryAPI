@@ -12,5 +12,5 @@ public interface IGenreService
 
     Task<GetGenreDto> UpdateGenreAsync(Guid id, UpdateGenreDto genreDto);
 
-    Task<GetGenreDto> DeleteGenreAsync(Guid id);
+    Task DeleteGenreAsync(Guid id);
 }

@@ -12,5 +12,5 @@ public interface IBookRentService
 
     Task<GetBookRentDto> UpdateBookRentAsync(Guid id, UpdateBookRentDto bookRentDto);
 
-    Task<GetBookRentDto> DeleteBookRentAsync(Guid id);
+    Task DeleteBookRentAsync(Guid id);
 }

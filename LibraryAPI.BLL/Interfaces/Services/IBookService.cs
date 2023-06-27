@@ -12,13 +12,13 @@ public interface IBookService
 
     Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto bookDto);
 
-    Task<GetBookDto> DeleteBookAsync(Guid id);
+    Task DeleteBookAsync(Guid id);
 
     Task AddBookAuthorAsync(Guid bookId, Guid authorId);
 
     Task RemoveBookAuthorAsync(Guid bookId, Guid authorId);
 
-    Task AddBookGenreAsync(Guid bookId, Guid authorId);
+    Task AddBookGenreAsync(Guid bookId, Guid genreId);
 
-    Task RemoveBookGenreAsync(Guid bookId, Guid authorId);
+    Task RemoveBookGenreAsync(Guid bookId, Guid genreId);
 }
