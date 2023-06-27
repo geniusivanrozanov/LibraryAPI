@@ -72,4 +72,16 @@ public class BookRepository : Repository<Book, Guid, LibraryDbContext>, IBookRep
     {
         Delete(book);
     }
+
+    public async Task<bool> ExistsWithNameAsync(string name)
+    {
+        return await Get(b => b.Name == name)
+            .AnyAsync();
+    }
+
+    public async Task<bool> ExistsWithISBNAsync(string isbn)
+    {
+        return await Get(b => b.ISBN == isbn)
+            .AnyAsync();
+    }
 }

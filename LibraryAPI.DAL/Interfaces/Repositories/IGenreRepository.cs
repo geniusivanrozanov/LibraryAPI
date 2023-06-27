@@ -17,4 +17,6 @@ public interface IGenreRepository
     void DeleteGenre(Genre genre);
     
     Task<bool> ExistsAsync(Guid id);
+
+    Task<bool> ExistsWithNameAsync(string name);
 }

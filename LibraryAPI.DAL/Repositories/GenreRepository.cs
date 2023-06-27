@@ -50,4 +50,10 @@ public class GenreRepository : Repository<Genre, Guid, LibraryDbContext>, IGenre
     {
         Delete(genre);
     }
+
+    public async Task<bool> ExistsWithNameAsync(string name)
+    {
+        return await Get(g => g.Name == name)
+            .AnyAsync();
+    }
 }
