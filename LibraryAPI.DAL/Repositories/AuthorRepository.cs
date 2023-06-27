@@ -49,4 +49,10 @@ public class AuthorRepository : Repository<Author, Guid, LibraryDbContext>, IAut
     {
         Delete(author);
     }
+
+    public async Task<bool> ExistsWithFirstNameAndLastNameAsync(string firstName, string lastName)
+    {
+        return await Get(a => a.FirstName == firstName && a.LastName == lastName)
+            .AnyAsync();
+    }
 }

@@ -17,4 +17,6 @@ public interface IAuthorRepository
     void DeleteAuthor(Author author);
 
     Task<bool> ExistsAsync(Guid id);
+
+    Task<bool> ExistsWithFirstNameAndLastNameAsync(string firstName, string lastName);
 }
