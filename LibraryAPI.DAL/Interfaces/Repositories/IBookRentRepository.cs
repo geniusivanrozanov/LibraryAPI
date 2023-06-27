@@ -17,4 +17,6 @@ public interface IBookRentRepository
     void UpdateBookRent(BookRent bookRent);
 
     void DeleteBookRent(BookRent bookRent);
+    
+    Task<bool> ExistsAsync(Guid id);
 }

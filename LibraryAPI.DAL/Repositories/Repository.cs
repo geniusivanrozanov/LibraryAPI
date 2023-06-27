@@ -25,4 +25,6 @@ public abstract class Repository<TEntity, TKey, TContext> : IRepository<TEntity,
     public virtual void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
 
     public virtual void Delete(TEntity entity) => Context.Set<TEntity>().Remove(entity);
+
+    public virtual async Task<bool> ExistsAsync(TKey id) => await Context.Set<TEntity>().AnyAsync(e => e.Id.Equals(id));
 }
