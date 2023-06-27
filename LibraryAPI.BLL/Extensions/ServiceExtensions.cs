@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryAPI.BLL.Extensions;
@@ -8,6 +9,7 @@ public static class ServiceExtensions
     public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
     {
         services.ConfigureAutomapper();
+        services.ConfigureValidators();
         
         return services;
     }
@@ -15,6 +17,13 @@ public static class ServiceExtensions
     private static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        
+        return services;
+    }
+
+    private static IServiceCollection ConfigureValidators(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         
         return services;
     }
