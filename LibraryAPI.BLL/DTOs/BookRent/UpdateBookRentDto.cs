@@ -2,5 +2,5 @@
 
 public class UpdateBookRentDto : BookRentDto
 {
-    public Guid Id { get; set; }
+
 }
