@@ -15,4 +15,6 @@ public interface IAuthorRepository
     void UpdateAuthor(Author author);
     
     void DeleteAuthor(Author author);
+
+    Task<bool> ExistsAsync(Guid id);
 }
