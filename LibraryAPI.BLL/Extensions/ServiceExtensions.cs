@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using FluentValidation;
+using LibraryAPI.BLL.Interfaces.Services;
 using LibraryAPI.BLL.Interfaces.Validators;
+using LibraryAPI.BLL.Services;
 using LibraryAPI.BLL.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +12,9 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
     {
-        services.ConfigureAutomapper();
-        services.ConfigureValidators();
+        services.ConfigureAutomapper()
+            .ConfigureValidators()
+            .AddServices();
 
         return services;
     }
@@ -28,6 +31,13 @@ public static class ServiceExtensions
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<IValidatorManager, ValidatorManager>();
         
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<IBookService, BookService>();
+
         return services;
     }
 }
