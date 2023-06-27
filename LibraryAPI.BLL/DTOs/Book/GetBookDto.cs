@@ -9,8 +9,8 @@ public class GetBookDto
     public string Name { get; set; } = default!;
     
     public string? Description { get; set; }
-    
-    public string? Genres { get; set; }
-    
-    public string? Authors { get; set; }
+
+    public string Genres { get; set; } = default!;
+
+    public string Authors { get; set; } = default!;
 }
