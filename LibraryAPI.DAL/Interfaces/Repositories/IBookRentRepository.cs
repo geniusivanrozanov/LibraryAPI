@@ -4,13 +4,13 @@ namespace LibraryAPI.DAL.Interfaces.Repositories;
 
 public interface IBookRentRepository
 {
-    Task<IEnumerable<BookRent>> GetAllBookRentsAsync();
+    Task<IEnumerable<TProjection>> GetAllBookRentsAsync<TProjection>();
 
-    Task<IEnumerable<BookRent>> GetBookRentsByBookIdAsync(Guid bookId);
+    Task<IEnumerable<TProjection>> GetBookRentsByBookIdAsync<TProjection>(Guid bookId);
 
-    Task<IEnumerable<BookRent>> GetBookRentsByUserIdAsync(Guid userId);
+    Task<IEnumerable<TProjection>> GetBookRentsByUserIdAsync<TProjection>(Guid userId);
 
-    Task<BookRent?> GetBookRentByIdAsync(Guid id);
+    Task<TProjection?> GetBookRentByIdAsync<TProjection>(Guid id);
 
     void CreateBookRent(BookRent bookRent);
 

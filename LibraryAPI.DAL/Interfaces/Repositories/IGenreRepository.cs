@@ -4,11 +4,11 @@ namespace LibraryAPI.DAL.Interfaces.Repositories;
 
 public interface IGenreRepository
 {
-    Task<IEnumerable<Genre>> GetAllGenresAsync();
+    Task<IEnumerable<TProjection>> GetAllGenresAsync<TProjection>();
 
-    Task<IEnumerable<Genre>> GetGenresByBookIdAsync(Guid bookId);
+    Task<IEnumerable<TProjection>> GetGenresByBookIdAsync<TProjection>(Guid bookId);
 
-    Task<Genre?> GetGenreByIdAsync(Guid id);
+    Task<TProjection?> GetGenreByIdAsync<TProjection>(Guid id);
 
     void CreateGenre(Genre genre);
     
