@@ -26,6 +26,7 @@ public static class ServiceExtensions
         services.AddDbContext<LibraryDbContext>(options =>
         {
             options.UseNpgsql(libraryConnectionString);
+            options.UseLazyLoadingProxies();
         });
 
         services.BuildServiceProvider()
