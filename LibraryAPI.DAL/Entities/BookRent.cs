@@ -12,8 +12,8 @@ public class BookRent : IBaseEntity<Guid>
     public DateTime ReturnDate { get; set; }
     
     public Guid BookId { get; set; }
-    public Book? Book { get; set; }
+    public virtual Book? Book { get; set; }
     
     public Guid UserId { get; set; }
-    public IdentityUser<Guid>? User { get; set; }
+    public virtual IdentityUser<Guid>? User { get; set; }
 }

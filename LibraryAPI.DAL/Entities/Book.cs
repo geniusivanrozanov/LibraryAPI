@@ -12,9 +12,9 @@ public class Book : IBaseEntity<Guid>
     
     public string? Description { get; set; }
     
-    public ICollection<Genre>? Genres { get; set; }
+    public virtual ICollection<Genre>? Genres { get; set; }
 
-    public ICollection<Author>? Authors { get; set; }
+    public virtual ICollection<Author>? Authors { get; set; }
     
-    public ICollection<BookRent>? Rents { get; set; }
+    public virtual ICollection<BookRent>? Rents { get; set; }
 }

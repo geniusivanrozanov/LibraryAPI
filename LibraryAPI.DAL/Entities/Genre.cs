@@ -8,5 +8,5 @@ public class Genre : IBaseEntity<Guid>
 
     public string Name { get; set; } = default!;
     
-    public ICollection<Book>? Books { get; set; }
+    public virtual ICollection<Book>? Books { get; set; }
 }
