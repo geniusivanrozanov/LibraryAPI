@@ -23,58 +23,57 @@ public class BookService : IBookService
 
     public async Task<IEnumerable<GetBookDto>> GetAllBooksAsync()
     {
-        var books = await _repositoryManager.Books.GetAllBooksAsync();
-
-        var booksDto = _mapper.Map<IEnumerable<GetBookDto>>(books);
+        var booksDto = await _repositoryManager.Books.GetAllBooksAsync<GetBookDto>();
 
         return booksDto;
     }
 
     public async Task<GetBookDto> GetBookByIdAsync(Guid id)
     {
-        var book = await _repositoryManager.Books.GetBookByIdAsync(id);
-
-        if (book is null)
+        var bookDto = await _repositoryManager.Books.GetBookByIdAsync<GetBookDto>(id);
+        if (bookDto is null)
         {
             throw new NotExistsException($"Book with id '{id}' doesn't exist.");
         }
 
-        var bookDto = _mapper.Map<GetBookDto>(book);
-
         return bookDto;
     }
 
-    public async Task<GetBookDto> CreateBookAsync(CreateBookDto bookDto)
+    public async Task<GetBookDto> CreateBookAsync(CreateBookDto createBookDto)
     {
-        var validationResults = await _validatorManager.ValidateAsync(bookDto);
+        var validationResults = await _validatorManager.ValidateAsync(createBookDto);
         if (!validationResults.IsValid)
         {
             throw new ValidationException(validationResults.ToString());
         }
         
-        var bookEntity = _mapper.Map<Book>(bookDto);
+        var bookEntity = _mapper.Map<Book>(createBookDto);
         _repositoryManager.Books.CreateBook(bookEntity);
         await _repositoryManager.SaveAsync();
 
         return _mapper.Map<GetBookDto>(bookEntity);
     }
 
-    public async Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto bookDto)
+    public async Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto updateBookDto)
     {
-        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync(id);
+        if (updateBookDto.Id != id)
+        {
+            throw new IdentifierMismatchException($"Book.id '{updateBookDto.Id}' doesn't match id '{id}'.");
+        }
+        
+        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync<Book>(id);
         if (bookEntity is null)
         {
             throw new NotExistsException($"Book with id '{id}' doesn't exist.");
         }
         
-        var validationResults = await _validatorManager.ValidateAsync(bookDto);
+        var validationResults = await _validatorManager.ValidateAsync(updateBookDto);
         if (!validationResults.IsValid)
         {
             throw new ValidationException(validationResults.ToString());
         }
 
-        _mapper.Map(bookDto, bookEntity);
-        _repositoryManager.Books.UpdateBook(bookEntity);
+        _mapper.Map(updateBookDto, bookEntity);
         await _repositoryManager.SaveAsync();
 
         return _mapper.Map<GetBookDto>(bookEntity);
@@ -94,13 +93,13 @@ public class BookService : IBookService
 
     public async Task AddBookAuthorAsync(Guid bookId, Guid authorId)
     {
-        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync(bookId);
+        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync<Book>(bookId);
         if (bookEntity is null)
         {
             throw new NotExistsException($"Book with id '{bookId}' doesn't exist.");
         }
         
-        var authorEntity = await _repositoryManager.Authors.GetAuthorByIdAsync(authorId);
+        var authorEntity = await _repositoryManager.Authors.GetAuthorByIdAsync<Author>(authorId);
         if (authorEntity is null)
         {
             throw new NotExistsException($"Author with id '{authorId}' doesn't exist.");
@@ -108,13 +107,12 @@ public class BookService : IBookService
 
         bookEntity.Authors ??= new List<Author>();
         bookEntity.Authors.Add(authorEntity);
-        _repositoryManager.Books.UpdateBook(bookEntity);
         await _repositoryManager.SaveAsync();
     }
 
     public async Task RemoveBookAuthorAsync(Guid bookId, Guid authorId)
     {
-        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync(bookId);
+        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync<Book>(bookId);
         if (bookEntity is null)
         {
             throw new NotExistsException($"Book with id '{bookId}' doesn't exist.");
@@ -133,13 +131,13 @@ public class BookService : IBookService
 
     public async Task AddBookGenreAsync(Guid bookId, Guid genreId)
     {
-        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync(bookId);
+        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync<Book>(bookId);
         if (bookEntity is null)
         {
             throw new NotExistsException($"Book with id '{bookId}' doesn't exist.");
         }
         
-        var genreEntity = await _repositoryManager.Genres.GetGenreByIdAsync(genreId);
+        var genreEntity = await _repositoryManager.Genres.GetGenreByIdAsync<Genre>(genreId);
         if (genreEntity is null)
         {
             throw new NotExistsException($"Genre with id '{genreId}' doesn't exist.");
@@ -153,7 +151,7 @@ public class BookService : IBookService
 
     public async Task RemoveBookGenreAsync(Guid bookId, Guid genreId)
     {
-        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync(bookId);
+        var bookEntity = await _repositoryManager.Books.GetBookByIdAsync<Book>(bookId);
         if (bookEntity is null)
         {
             throw new NotExistsException($"Book with id '{bookId}' doesn't exist.");

@@ -8,9 +8,9 @@ public interface IBookService
 
     Task<GetBookDto> GetBookByIdAsync(Guid id);
 
-    Task<GetBookDto> CreateBookAsync(CreateBookDto bookDto);
+    Task<GetBookDto> CreateBookAsync(CreateBookDto createBookDto);
 
-    Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto bookDto);
+    Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto updateBookDto);
 
     Task DeleteBookAsync(Guid id);
 
