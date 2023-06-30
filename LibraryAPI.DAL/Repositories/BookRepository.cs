@@ -44,8 +44,7 @@ public class BookRepository : Repository<Book, Guid, LibraryDbContext>, IBookRep
 
     public async Task<Book?> GetBookByIdAsync(Guid id)
     {
-        var book = await Get(b => b.Id.Equals(id))
-            .SingleOrDefaultAsync();
+        var book = await Get(id);
 
         return book;
     }

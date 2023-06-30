@@ -37,8 +37,7 @@ public class BookRentRepository : Repository<BookRent, Guid, LibraryDbContext>, 
 
     public async Task<BookRent?> GetBookRentByIdAsync(Guid id)
     {
-        var rent = await Get(r => r.Id.Equals(id))
-            .SingleOrDefaultAsync();
+        var rent = await Get(id);
 
         return rent;
     }

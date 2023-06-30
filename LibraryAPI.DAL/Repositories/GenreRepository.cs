@@ -30,8 +30,7 @@ public class GenreRepository : Repository<Genre, Guid, LibraryDbContext>, IGenre
 
     public async Task<Genre?> GetGenreByIdAsync(Guid id)
     {
-        var genre = await Get(g => g.Id.Equals(id))
-            .SingleOrDefaultAsync();
+        var genre = await Get(id);
 
         return genre;
     }

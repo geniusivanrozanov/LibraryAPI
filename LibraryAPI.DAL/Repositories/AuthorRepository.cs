@@ -29,8 +29,7 @@ public class AuthorRepository : Repository<Author, Guid, LibraryDbContext>, IAut
 
     public async Task<Author?> GetAuthorByIdAsync(Guid id)
     {
-        var author = await Get(a => a.Id.Equals(id))
-            .SingleOrDefaultAsync();
+        var author = await Get(id);
 
         return author;
     }

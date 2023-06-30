@@ -19,6 +19,7 @@ public abstract class Repository<TEntity, TKey, TContext> : IRepository<TEntity,
     public virtual IQueryable<TEntity> Get() => Context.Set<TEntity>();
 
     public virtual IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> condition) => Get().Where(condition);
+    public async Task<TEntity?> Get(TKey id) => await Context.Set<TEntity>().FindAsync(id);
 
     public virtual void Create(TEntity entity) => Context.Set<TEntity>().Add(entity);
 
