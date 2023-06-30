@@ -4,15 +4,15 @@ namespace LibraryAPI.DAL.Interfaces.Repositories;
 
 public interface IBookRepository
 {
-    Task<IEnumerable<Book>> GetAllBooksAsync();
+    Task<IEnumerable<TProjection>> GetAllBooksAsync<TProjection>();
 
-    Task<IEnumerable<Book>> GetBooksByAuthorIdAsync(Guid authorId);
+    Task<IEnumerable<TProjection>> GetBooksByAuthorIdAsync<TProjection>(Guid authorId);
 
-    Task<IEnumerable<Book>> GetBooksByGenreIdAsync(Guid genreId);
+    Task<IEnumerable<TProjection>> GetBooksByGenreIdAsync<TProjection>(Guid genreId);
     
-    Task<Book?> GetBookByIdAsync(Guid id);
+    Task<TProjection?> GetBookByIdAsync<TProjection>(Guid id);
 
-    Task<Book?> GetBookByISBNAsync(string isbn);
+    Task<TProjection?> GetBookByISBNAsync<TProjection>(string isbn);
 
     void CreateBook(Book book);
     
