@@ -1,4 +1,5 @@
-﻿using LibraryAPI.DAL.Contexts;
+﻿using AutoMapper;
+using LibraryAPI.DAL.Contexts;
 using LibraryAPI.DAL.Entities;
 using LibraryAPI.DAL.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -7,38 +8,37 @@ namespace LibraryAPI.DAL.Repositories;
 
 public class BookRentRepository : Repository<BookRent, Guid, LibraryDbContext>, IBookRentRepository
 {
-    public BookRentRepository(LibraryDbContext context) : base(context)
+    public BookRentRepository(LibraryDbContext context, IMapper mapper) : base(context, mapper)
     {
     }
 
-    public async Task<IEnumerable<BookRent>> GetAllBookRentsAsync()
+    public async Task<IEnumerable<TProjection>> GetAllBookRentsAsync<TProjection>()
     {
-        var rents = await Get()
+        var rents = await Get<TProjection>()
             .ToListAsync();
 
         return rents;
     }
 
-    public async Task<IEnumerable<BookRent>> GetBookRentsByBookIdAsync(Guid bookId)
+    public async Task<IEnumerable<TProjection>> GetBookRentsByBookIdAsync<TProjection>(Guid bookId)
     {
-        var rents = await Get(r => r.Book.Id.Equals(bookId))
+        var rents = await Get<TProjection>(r => r.Book.Id.Equals(bookId))
             .ToListAsync();
 
         return rents;
     }
 
-    public async Task<IEnumerable<BookRent>> GetBookRentsByUserIdAsync(Guid userId)
+    public async Task<IEnumerable<TProjection>> GetBookRentsByUserIdAsync<TProjection>(Guid userId)
     {
-        var rents = await Get(r => r.User.Id.Equals(userId))
+        var rents = await Get<TProjection>(r => r.User.Id.Equals(userId))
             .ToListAsync();
 
         return rents;
     }
 
-    public async Task<BookRent?> GetBookRentByIdAsync(Guid id)
+    public async Task<TProjection?> GetBookRentByIdAsync<TProjection>(Guid id)
     {
-        var rent = await Get(r => r.Id.Equals(id))
-            .SingleOrDefaultAsync();
+        var rent = await Get<TProjection>(id);
 
         return rent;
     }

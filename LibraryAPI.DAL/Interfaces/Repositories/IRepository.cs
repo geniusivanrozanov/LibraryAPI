@@ -3,12 +3,14 @@ using LibraryAPI.DAL.Interfaces.Entities;
 
 namespace LibraryAPI.DAL.Interfaces.Repositories;
 
-public interface IRepository<TEntity, TKey>
+public interface IRepository<TEntity, in TKey>
     where TEntity : class, IBaseEntity<TKey>
 {
-    IQueryable<TEntity> Get();
+    IQueryable<TProjection> Get<TProjection>();
 
-    IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> condition);
+    IQueryable<TProjection> Get<TProjection>(Expression<Func<TEntity, bool>> condition);
+
+    Task<TProjection?> Get<TProjection>(TKey id);
 
     void Create(TEntity entity);
 

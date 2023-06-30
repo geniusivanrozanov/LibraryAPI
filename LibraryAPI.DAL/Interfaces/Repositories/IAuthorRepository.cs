@@ -4,11 +4,11 @@ namespace LibraryAPI.DAL.Interfaces.Repositories;
 
 public interface IAuthorRepository
 {
-    Task<IEnumerable<Author>> GetAllAuthorsAsync();
+    Task<IEnumerable<TProjection>> GetAllAuthorsAsync<TProjection>();
 
-    Task<IEnumerable<Author>> GetAuthorsByBookIdAsync(Guid bookId);
+    Task<IEnumerable<TProjection>> GetAuthorsByBookIdAsync<TProjection>(Guid bookId);
 
-    Task<Author?> GetAuthorByIdAsync(Guid id);
+    Task<TProjection?> GetAuthorByIdAsync<TProjection>(Guid id);
 
     void CreateAuthor(Author author);
     
