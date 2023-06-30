@@ -8,9 +8,9 @@ public interface IAuthorService
 
     Task<GetAuthorDto> GetAuthorByIdAsync(Guid id);
 
-    Task<GetAuthorDto> CreateAuthorAsync(CreateAuthorDto authorDto);
+    Task<GetAuthorDto> CreateAuthorAsync(CreateAuthorDto createAuthorDto);
 
-    Task<GetAuthorDto> UpdateAuthorAsync(Guid id, UpdateAuthorDto authorDto);
+    Task<GetAuthorDto> UpdateAuthorAsync(Guid id, UpdateAuthorDto updateAuthorDto);
 
     Task DeleteAuthorAsync(Guid id);
 }
