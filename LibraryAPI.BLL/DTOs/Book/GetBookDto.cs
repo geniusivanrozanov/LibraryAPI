@@ -7,4 +7,6 @@ public class GetBookDto : BookDto
     public string Genres { get; set; } = default!;
 
     public string Authors { get; set; } = default!;
+    
+    public int NumberOfRents { get; set; }
 }

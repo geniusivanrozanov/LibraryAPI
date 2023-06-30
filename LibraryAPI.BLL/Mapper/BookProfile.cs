@@ -16,6 +16,10 @@ public class BookProfile : Profile
             .ForMember(dto => dto.Authors, opt =>
             {
                 opt.MapFrom(x => string.Join(", ", x.Authors.Select(a => $"{a.FirstName} {a.LastName}")));
+            })
+            .ForMember(dto => dto.NumberOfRents, opt =>
+            {
+                opt.MapFrom(x => x.Rents.Count());
             });
 
         CreateMap<CreateBookDto, Book>();
