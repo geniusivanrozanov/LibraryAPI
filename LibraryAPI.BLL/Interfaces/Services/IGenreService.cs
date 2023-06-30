@@ -8,9 +8,9 @@ public interface IGenreService
 
     Task<GetGenreDto> GetGenreByIdAsync(Guid id);
 
-    Task<GetGenreDto> CreateGenreAsync(CreateGenreDto genreDto);
+    Task<GetGenreDto> CreateGenreAsync(CreateGenreDto createGenreDto);
 
-    Task<GetGenreDto> UpdateGenreAsync(Guid id, UpdateGenreDto genreDto);
+    Task<GetGenreDto> UpdateGenreAsync(Guid id, UpdateGenreDto updateGenreDto);
 
     Task DeleteGenreAsync(Guid id);
 }
