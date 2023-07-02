@@ -8,9 +8,9 @@ public interface IBookRentService
 
     Task<GetBookRentDto> GetBookRentByIdAsync(Guid id);
 
-    Task<GetBookRentDto> CreateBookRentAsync(CreateBookRentDto bookRentDto);
+    Task<GetBookRentDto> CreateBookRentAsync(CreateBookRentDto createBookRentDto);
 
-    Task<GetBookRentDto> UpdateBookRentAsync(Guid id, UpdateBookRentDto bookRentDto);
+    Task<GetBookRentDto> UpdateBookRentAsync(Guid id, UpdateBookRentDto updateBookRentDto);
 
     Task DeleteBookRentAsync(Guid id);
 }
