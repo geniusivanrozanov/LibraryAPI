@@ -1,3 +1,4 @@
+using LibraryAPI.BLL.Extensions;
 using LibraryAPI.DAL.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDataAccessLayer(builder.Configuration);
+builder.Services.AddBusinessLogicLayer();
 
 var app = builder.Build();
 
