@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ExceptionHandler\ExceptionHandler.csproj" />
       <ProjectReference Include="..\LibraryAPI.BLL\LibraryAPI.BLL.csproj" />
       <ProjectReference Include="..\LibraryAPI.DAL\LibraryAPI.DAL.csproj" />
     </ItemGroup>

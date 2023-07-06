@@ -1,5 +1,6 @@
 using LibraryAPI.BLL.Extensions;
 using LibraryAPI.DAL.Extensions;
+using LibraryAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDataAccessLayer(builder.Configuration);
 builder.Services.AddBusinessLogicLayer();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandlerMiddleware();
 
 app.UseHttpsRedirection();
 
