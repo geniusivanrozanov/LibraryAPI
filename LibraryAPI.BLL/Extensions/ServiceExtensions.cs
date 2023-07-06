@@ -65,6 +65,7 @@ public static class ServiceExtensions
         services.AddScoped<IAuthorService, AuthorService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IBookRentService, BookRentService>();
 
         return services;
     }

@@ -60,7 +60,7 @@ public class UserService : IUserService
 
         if (!loginResult.Succeeded)
         {
-            throw new Exception(loginResult.ToString());
+            throw new LoginFailedException(loginResult.ToString());
         }
 
         return await _tokenService.GenerateTokenAsync(userEntity);

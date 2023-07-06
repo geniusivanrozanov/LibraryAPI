@@ -13,7 +13,8 @@ public static class ApplicationBuilderExtensions
             .AddExceptionStatusCode<IdentifierMismatchException>(HttpStatusCode.BadRequest)
             .AddExceptionStatusCode<NotExistsException>(HttpStatusCode.NotFound)
             .AddExceptionStatusCode<ValidationException>(HttpStatusCode.BadRequest)
-            .AddExceptionStatusCode<RegistrationFailedException>(HttpStatusCode.Conflict);
+            .AddExceptionStatusCode<RegistrationFailedException>(HttpStatusCode.Conflict)
+            .AddExceptionStatusCode<LoginFailedException>(HttpStatusCode.BadRequest);
         
         return app;
     }
