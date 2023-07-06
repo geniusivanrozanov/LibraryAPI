@@ -3,16 +3,19 @@ using LibraryAPI.DAL.Extensions;
 using LibraryAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
-builder.Services.AddDataAccessLayer(builder.Configuration);
+builder.Services.AddDataAccessLayer(configuration);
 builder.Services.AddBusinessLogicLayer();
 
+builder.Services.AddAuthorization();
+builder.Services.ConfigureAuthentication(configuration);
 
 var app = builder.Build();
 
@@ -26,6 +29,8 @@ if (app.Environment.IsDevelopment())
 app.ConfigureExceptionHandlerMiddleware();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

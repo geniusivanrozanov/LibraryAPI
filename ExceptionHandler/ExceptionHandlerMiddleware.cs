@@ -35,7 +35,7 @@ public class ExceptionHandlerMiddleware
 
             await context.Response.WriteAsync(errorDetails.ToString());
             
-            _logger.LogError("Status code: {StatusCode}; Message: {Message}", (int)errorDetails.StatusCode, errorDetails.Message);
+            _logger.LogError("Status code: {StatusCode}; Message: {Message}", (int)errorDetails.StatusCode, e.ToString());
         }
     }
 

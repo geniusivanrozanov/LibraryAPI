@@ -4,6 +4,9 @@ using LibraryAPI.BLL.Interfaces.Services;
 using LibraryAPI.BLL.Interfaces.Validators;
 using LibraryAPI.BLL.Services;
 using LibraryAPI.BLL.Validators;
+using LibraryAPI.DAL.Contexts;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryAPI.BLL.Extensions;
@@ -14,6 +17,7 @@ public static class ServiceExtensions
     {
         services.ConfigureAutomapper()
             .ConfigureValidators()
+            .ConfigureIdentity()
             .AddServices();
 
         return services;
@@ -34,11 +38,33 @@ public static class ServiceExtensions
         return services;
     }
 
+    private static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+    {
+        services.AddIdentityCore<IdentityUser<Guid>>(options =>
+            {
+                options.Password = new PasswordOptions()
+                {
+                    RequireDigit = false,
+                    RequireLowercase = false,
+                    RequireUppercase = false,
+                    RequireNonAlphanumeric = false
+                };
+            })
+            .AddRoles<IdentityRole<Guid>>()
+            .AddSignInManager()
+            .AddEntityFrameworkStores<LibraryDbContext>()
+            .AddDefaultTokenProviders();
+        
+        return services;
+    }
+
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IBookService, BookService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IAuthorService, AuthorService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }
