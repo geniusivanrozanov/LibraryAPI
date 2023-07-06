@@ -14,7 +14,8 @@ public static class ApplicationBuilderExtensions
             .AddExceptionStatusCode<NotExistsException>(HttpStatusCode.NotFound)
             .AddExceptionStatusCode<ValidationException>(HttpStatusCode.BadRequest)
             .AddExceptionStatusCode<RegistrationFailedException>(HttpStatusCode.Conflict)
-            .AddExceptionStatusCode<LoginFailedException>(HttpStatusCode.BadRequest);
+            .AddExceptionStatusCode<LoginFailedException>(HttpStatusCode.BadRequest)
+            .AddExceptionStatusCode<ActorNotRecognizedException>(HttpStatusCode.Unauthorized);
         
         return app;
     }

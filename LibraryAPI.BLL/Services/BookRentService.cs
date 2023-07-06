@@ -14,11 +14,12 @@ public class BookRentService : IBookRentService
 {
     private readonly IRepositoryManager _repositoryManager;
     private readonly IValidatorManager _validatorManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<IdentityUser<Guid>> _userManager;
     private readonly IMapper _mapper;
+    
     private readonly ClaimsPrincipal _user;
 
-    public BookRentService(IRepositoryManager repositoryManager, IValidatorManager validatorManager, IMapper mapper, UserManager<IdentityUser> userManager, ClaimsPrincipal user)
+    public BookRentService(IRepositoryManager repositoryManager, IValidatorManager validatorManager, IMapper mapper, UserManager<IdentityUser<Guid>> userManager, ClaimsPrincipal user)
     {
         _repositoryManager = repositoryManager;
         _validatorManager = validatorManager;
@@ -54,7 +55,14 @@ public class BookRentService : IBookRentService
         }
 
         var bookRentEntity = _mapper.Map<BookRent>(createBookRentDto);
-        bookRentEntity.UserId = new Guid(_userManager.GetUserId(_user));
+        
+        var userId = _userManager.GetUserId(_user);
+        if (userId == null)
+        {
+            throw new ActorNotRecognizedException("Actor not recognized.");
+        }
+        
+        bookRentEntity.UserId = new Guid(userId);
         _repositoryManager.BookRents.CreateBookRent(bookRentEntity);
         await _repositoryManager.SaveAsync();
 

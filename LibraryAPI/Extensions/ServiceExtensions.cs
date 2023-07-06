@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -7,6 +8,14 @@ namespace LibraryAPI.Extensions;
 
 public static class ServiceExtensions
 {
+    public static IServiceCollection AddClaimsPrincipal(this IServiceCollection services)
+    {
+        services.AddScoped<ClaimsPrincipal>(s =>
+            s.GetRequiredService<IHttpContextAccessor>().HttpContext.User);
+
+        return services;
+    }
+    
     public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var key = Encoding.UTF8.GetBytes(configuration["JwtConfig:Secret"]);

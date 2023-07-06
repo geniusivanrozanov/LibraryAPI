@@ -9,8 +9,7 @@ namespace LibraryAPI.Controllers
     public class GenresController : ControllerBase
     {
         private readonly IGenreService _genreService;
-
-
+        
         public GenresController(IGenreService genreService)
         {
             _genreService = genreService;
