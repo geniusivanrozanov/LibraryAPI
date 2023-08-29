@@ -1,0 +1,30 @@
+﻿version: "3.4"
+
+services:
+  library-api:
+    depends_on:
+      - "postgres"
+    container_name: library-api
+    ports:
+      - "5000:80"
+    build:
+      context: .
+      dockerfile: ./LibraryAPI/Dockerfile
+    environment:
+      - ConnectionStrings:LibraryConnectionString=Server=postgres;Port=5432;Database=Library;User Id=postgres;Password=postgres;
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "1234:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
