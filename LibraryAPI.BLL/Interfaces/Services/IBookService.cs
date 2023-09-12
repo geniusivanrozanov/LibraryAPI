@@ -8,6 +8,8 @@ public interface IBookService
 
     Task<GetBookDto> GetBookByIdAsync(Guid id);
 
+    Task<GetBookDto> GetBookByIsbnAsync(string isbn);
+
     Task<GetBookDto> CreateBookAsync(CreateBookDto createBookDto);
 
     Task<GetBookDto> UpdateBookAsync(Guid id, UpdateBookDto updateBookDto);

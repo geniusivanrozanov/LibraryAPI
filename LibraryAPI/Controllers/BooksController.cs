@@ -1,5 +1,7 @@
-﻿using LibraryAPI.BLL.DTOs.Book;
+﻿using LibraryAPI.BLL.Constants;
+using LibraryAPI.BLL.DTOs.Book;
 using LibraryAPI.BLL.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
@@ -17,6 +19,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = Roles.User)]
         public async Task<IActionResult> GetAll()
         {
             var books = await _bookService.GetAllBooksAsync();
@@ -28,6 +31,14 @@ namespace LibraryAPI.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
+
+            return Ok(book);
+        }
+        
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByISBN([FromQuery] string isbn)
+        {
+            var book = await _bookService.GetBookByIsbnAsync(isbn);
 
             return Ok(book);
         }

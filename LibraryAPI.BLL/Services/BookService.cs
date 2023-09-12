@@ -39,6 +39,17 @@ public class BookService : IBookService
         return bookDto;
     }
 
+    public async Task<GetBookDto> GetBookByIsbnAsync(string isbn)
+    {
+        var bookDto = await _repositoryManager.Books.GetBookByISBNAsync<GetBookDto>(isbn);
+        if (bookDto is null)
+        {
+            throw new NotExistsException($"Book with ISBN '{isbn}' doesn't exist.");
+        }
+
+        return bookDto;
+    }
+
     public async Task<GetBookDto> CreateBookAsync(CreateBookDto createBookDto)
     {
         var validationResults = await _validatorManager.ValidateAsync(createBookDto);
