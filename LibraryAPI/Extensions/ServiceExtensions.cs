@@ -47,12 +47,12 @@ public static class ServiceExtensions
         {
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+                Description = "JWT Authorization header using the Bearer scheme.",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
+                Type = SecuritySchemeType.Http,
                 Scheme = "Bearer",
-                BearerFormat = "JWT", 
+                BearerFormat = "JWT",
             });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
