@@ -7,18 +7,21 @@ using LibraryAPI.BLL.Validators;
 using LibraryAPI.DAL.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryAPI.BLL.Extensions;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
+    public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureAutomapper()
             .ConfigureValidators()
             .ConfigureIdentity()
             .AddServices();
+
+        services.InitializeDatabaseAsync(configuration).Wait();
 
         return services;
     }

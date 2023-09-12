@@ -13,7 +13,7 @@ builder.Services.ConfigureSwagger();
 builder.Services.AddClaimsPrincipal();
 
 builder.Services.AddDataAccessLayer(configuration);
-builder.Services.AddBusinessLogicLayer();
+builder.Services.AddBusinessLogicLayer(configuration);
 
 builder.Services.AddAuthorization();
 builder.Services.ConfigureAuthentication(configuration);
