@@ -18,6 +18,8 @@ builder.Services.AddBusinessLogicLayer(configuration);
 builder.Services.AddAuthorization();
 builder.Services.ConfigureAuthentication(configuration);
 
+builder.Services.InitializeDatabase(configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
