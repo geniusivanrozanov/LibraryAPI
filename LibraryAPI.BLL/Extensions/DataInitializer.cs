@@ -7,22 +7,19 @@ namespace LibraryAPI.BLL.Extensions;
 
 public static class DataInitializer
 {
-    public static async Task<IServiceCollection> InitializeDatabaseAsync(this IServiceCollection services,
+    public static IServiceCollection InitializeDatabase(this IServiceCollection services,
         IConfiguration configuration)
     {
         var scope = services.BuildServiceProvider().CreateScope();
-        await scope.EnsureRolesCreatedAsync();
+        scope.EnsureRolesCreatedAsync().Wait();
+        scope.EnsureDefaultUsersCreatedAsync(configuration).Wait();
         
         return services;
     }
     
     private static async Task<IServiceScope> EnsureRolesCreatedAsync(this IServiceScope scope)
     {
-        var roles = new string[]
-        {
-            Roles.Admin,
-            Roles.User
-        };
+        var roles = Roles.AllRoles;
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         var existingRoles = roleManager.Roles
             .Select(r => r.Name)

@@ -21,8 +21,6 @@ public static class ServiceExtensions
             .ConfigureIdentity()
             .AddServices();
 
-        services.InitializeDatabaseAsync(configuration).Wait();
-
         return services;
     }
     
