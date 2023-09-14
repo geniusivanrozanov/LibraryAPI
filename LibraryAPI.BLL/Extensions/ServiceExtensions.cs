@@ -50,7 +50,8 @@ public static class ServiceExtensions
                     RequireDigit = false,
                     RequireLowercase = false,
                     RequireUppercase = false,
-                    RequireNonAlphanumeric = false
+                    RequireNonAlphanumeric = false,
+                    RequiredLength = 4
                 };
             })
             .AddRoles<IdentityRole<Guid>>()
