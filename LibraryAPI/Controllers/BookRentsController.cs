@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibraryAPI.BLL.Constants;
 using LibraryAPI.BLL.DTOs.BookRent;
 using LibraryAPI.BLL.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> GetAll()
         {
             var bookRents = await _bookRentService.GetAllBookRentsAsync();
@@ -29,6 +32,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpGet("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> GetById(Guid id)
         {
             var bookRent = await _bookRentService.GetBookRentByIdAsync(id);
@@ -37,6 +41,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateBookRentDto bookRentDto)
         {
             var createdBookRent = await _bookRentService.CreateBookRentAsync(bookRentDto);
@@ -45,6 +50,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateBookRentDto bookRentDto)
         {
             var updatedBookRent = await _bookRentService.UpdateBookRentAsync(id, bookRentDto);
@@ -53,6 +59,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _bookRentService.DeleteBookRentAsync(id);

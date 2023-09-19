@@ -19,7 +19,6 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.User)]
         public async Task<IActionResult> GetAll()
         {
             var books = await _bookService.GetAllBooksAsync();
@@ -44,6 +43,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create([FromBody] CreateBookDto bookDto)
         {
             var createdBook = await _bookService.CreateBookAsync(bookDto);
@@ -52,6 +52,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateBookDto bookDto)
         {
             var updatedBook = await _bookService.UpdateBookAsync(id, bookDto);
@@ -60,6 +61,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _bookService.DeleteBookAsync(id);
@@ -68,6 +70,7 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPost("{id}/genres")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> AddGenre(Guid id, [FromBody] Guid genreId)
         {
             await _bookService.AddBookGenreAsync(id, genreId);
@@ -76,6 +79,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpDelete("{id}/genres/{genreId}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> RemoveGenre(Guid id, Guid genreId)
         {
             await _bookService.RemoveBookGenreAsync(id, genreId);
@@ -84,6 +88,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpPost("{id}/authors")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> AddAuthor(Guid id, [FromBody] Guid authorId)
         {
             await _bookService.AddBookAuthorAsync(id, authorId);
@@ -92,6 +97,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpDelete("{id}/authors/{authorId}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> RemoveAuthor(Guid id, Guid authorId)
         {
             await _bookService.RemoveBookAuthorAsync(id, authorId);

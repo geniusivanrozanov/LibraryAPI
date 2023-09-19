@@ -1,5 +1,7 @@
+using LibraryAPI.BLL.Constants;
 using LibraryAPI.BLL.DTOs.Author;
 using LibraryAPI.BLL.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
@@ -33,14 +35,16 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create([FromBody] CreateAuthorDto authorDto)
         {
             var createdAuthor = await _authorService.CreateAuthorAsync(authorDto);
 
             return CreatedAtAction(nameof(GetById), new { Id = createdAuthor.Id }, createdAuthor);
         }
-
+        
         [HttpPut("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAuthorDto authorDto)
         {
             var updatedAuthor = await _authorService.UpdateAuthorAsync(id, authorDto);
@@ -49,6 +53,7 @@ namespace LibraryAPI.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _authorService.DeleteAuthorAsync(id);
