@@ -69,6 +69,8 @@ public static class ServiceExtensions
                     new string[] {}
                 }
             });
+            
+            options.EnableAnnotations();
         });
         
         return services;
