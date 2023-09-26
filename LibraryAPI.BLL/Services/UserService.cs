@@ -56,11 +56,10 @@ public class UserService : IUserService
         }
 
         var userEntity = await _userManager.FindByNameAsync(loginUserDto.UserName);
-        var loginResult = await _signInManager.CheckPasswordSignInAsync(userEntity, loginUserDto.Password, false);
-
-        if (!loginResult.Succeeded)
+        if (userEntity is null ||
+            !await _userManager.CheckPasswordAsync(userEntity, loginUserDto.Password))
         {
-            throw new LoginFailedException(loginResult.ToString());
+            throw new LoginFailedException("Invalid username or password.");
         }
 
         return await _tokenService.GenerateTokenAsync(userEntity);
