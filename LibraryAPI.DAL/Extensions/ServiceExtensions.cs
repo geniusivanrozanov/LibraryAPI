@@ -28,7 +28,9 @@ public static class ServiceExtensions
             options.UseNpgsql(libraryConnectionString);
             options.UseLazyLoadingProxies();
         });
-
+        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        
         services.BuildServiceProvider()
             .MigrateDatabase<LibraryDbContext>();
         
