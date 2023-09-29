@@ -2,6 +2,7 @@
 
 services:
   library-api:
+    image: geniusivanrozanov/library-api:latest
     depends_on:
       - "postgres"
     container_name: library-api
