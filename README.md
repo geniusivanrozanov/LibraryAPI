@@ -141,7 +141,7 @@ Send POST request on `/api/users/login` with username and password in body:
   "password": "<your password>"
 }
 ```
-You will get token if user is created. Send `Bearer <your token>` in `Authorization` header in your requests. If you use swagger you can can pass it in "Authorize" window (without word "Bearer").
+You will get token if successfully logged in. Send `Bearer <your token>` in `Authorization` header in your requests. If you use swagger you can can pass it in "Authorize" window (without word "Bearer").
 
 ### Books
 
