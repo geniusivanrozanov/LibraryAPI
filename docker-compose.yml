@@ -8,9 +8,6 @@ services:
     container_name: library-api
     ports:
       - "5000:80"
-    build:
-      context: .
-      dockerfile: ./LibraryAPI/Dockerfile
     environment:
       - ConnectionStrings:LibraryConnectionString=Server=postgres;Port=5432;Database=Library;User Id=postgres;Password=postgres;
       - ASPNETCORE_ENVIRONMENT=Development
